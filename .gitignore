@@ -36,3 +36,7 @@ build/
 *.zip
 *.tar
 *.gz
+
+# Arquivos auxiliares de entrega
+ETAPA1-ENTREGA.md
+ETAPA2-ENTREGA.md
