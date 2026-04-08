@@ -9,8 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$categories    = tema_carolina_get_post_category_links( get_the_ID() );
-$thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'blog-card' );
+$post_id        = get_the_ID();
+$categories     = tema_carolina_get_post_category_links( $post_id );
+$thumbnail_url  = get_the_post_thumbnail_url( $post_id, 'blog-card' );
+$reading_time   = tema_carolina_get_reading_time_label( $post_id );
+$updated_label  = tema_carolina_get_post_updated_label( $post_id );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'post-card' ); ?> data-reveal>
 	<?php if ( $thumbnail_url ) : ?>
@@ -25,9 +28,17 @@ $thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'blog-card' );
 
 	<div class="post-card__content">
 		<div class="post-card__meta">
-			<time class="entry-meta" datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+			<div class="post-card__meta-primary">
+				<time class="entry-meta" datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+				<?php if ( $reading_time ) : ?>
+					<span class="post-card__meta-detail"><?php echo esc_html( $reading_time ); ?></span>
+				<?php endif; ?>
+			</div>
 			<?php if ( $categories ) : ?>
 				<div class="entry-taxonomy"><?php echo wp_kses_post( $categories ); ?></div>
+			<?php endif; ?>
+			<?php if ( $updated_label ) : ?>
+				<p class="post-card__meta-note"><?php echo esc_html( $updated_label ); ?></p>
 			<?php endif; ?>
 		</div>
 

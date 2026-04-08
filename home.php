@@ -43,6 +43,19 @@ get_header();
 		</div>
 	</section>
 
+	<section class="journal-search-section" aria-labelledby="blog-search-title">
+		<div class="container">
+			<div class="journal-search-card" data-reveal>
+				<div class="journal-search-card__content">
+					<span class="eyebrow"><?php esc_html_e( 'Busca', 'tema-carolina' ); ?></span>
+					<h2 id="blog-search-title"><?php esc_html_e( 'Encontre um artigo pelo tema que você quer explorar', 'tema-carolina' ); ?></h2>
+					<p><?php esc_html_e( 'Pesquise por uma palavra-chave para localizar textos sobre terapia, vínculos, ansiedade, autoconhecimento e outros assuntos do blog.', 'tema-carolina' ); ?></p>
+				</div>
+				<?php get_search_form(); ?>
+			</div>
+		</div>
+	</section>
+
 	<?php if ( $categories ) : ?>
 		<section class="journal-intro" id="temas">
 			<div class="container">
@@ -50,13 +63,15 @@ get_header();
 					<span class="eyebrow"><?php esc_html_e( 'Temas', 'tema-carolina' ); ?></span>
 					<h2><?php esc_html_e( 'Navegue por categorias do blog', 'tema-carolina' ); ?></h2>
 					<p class="journal-intro__lead"><?php esc_html_e( 'Os conteúdos do blog também ficam organizados por temas nativos do WordPress, facilitando encontrar reflexões sobre assuntos específicos.', 'tema-carolina' ); ?></p>
-					<div class="journal-intro__actions entry-taxonomy">
-						<?php foreach ( $categories as $category ) : ?>
-							<a href="<?php echo esc_url( get_category_link( $category ) ); ?>">
-								<?php echo esc_html( $category->name ); ?>
-							</a>
-						<?php endforeach; ?>
-					</div>
+					<?php
+					tema_carolina_render_editorial_topic_navigation(
+						array(
+							'nav_class'           => 'journal-intro__actions entry-taxonomy entry-taxonomy--topics',
+							'current_category_id' => 0,
+							'active_all'          => true,
+						)
+					);
+					?>
 				</div>
 			</div>
 		</section>
